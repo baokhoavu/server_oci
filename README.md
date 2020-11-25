@@ -1,4 +1,6 @@
-# Dev OCI
+# Weekend To Conquer Cancer OCI Server Added API version
+
+This is a modified version of the OCI using server sided API's.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.1.
 
