@@ -1,0 +1,366 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!fundResponse.getFundraisingResponse">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<div class="container" id="step-07">
+  <div class="form-container">
+    <div class="row">
+      <h2 *ngIf="fundsMet && this.noTeam === true">Your Fundraising Snapshot</h2>
+      <h2 *ngIf="regResponse && checkinStatus !== 'committed' && checkinStatus !== 'paid' && this.noTeam === false">Team Fundraising Snapshot</h2>
+      <div *ngIf="!fundsMet">
+        <h4>Congratulations! You or your team has enough funds raised for you to complete the Event Check-In process!</h4>
+        <p *ngIf="data.participationType === 'Crew'">
+          Thank you for supporting the Rexall&trade; OneWalk to Conquer Cancer&trade;. As a Crew Member, you have no fundraising minimum. Click the 'Next' button to complete your Online Check-In.
+        </p>
+      </div>
+    </div>
+    
+    <div class="row titleRow" *ngIf="regResponse && checkinStatus !== 'committed' && checkinStatus !== 'paid' && this.noTeam === true">
+      <!--<div class="col-md" *ngIf="data.username || data.consUserName">-->
+      <!--<p>Username:</p>-->
+      <!--<h4 class="txt-indigo">{{data  .consUserName || data.username}}</h4>-->
+      <!--</div>-->
+      <div class="col-md" *ngIf="minimumGoal">
+        <p>Minimum required:</p>
+        <p class="txt-indigo"><strong>${{minimumGoal}}</strong></p>
+      </div>
+      <div class="col-md" *ngIf="amountRaised">
+        <p>Amount raised:</p>
+        <p class="txt-indigo"><strong>${{amountRaised}}</strong></p>
+      </div>
+      <div *ngIf="upsellResponse === 'Yes'" class="col-md">
+        <p>2019 Registration:</p>
+        <p class="txt-indigo"><strong>${{upsellPrice}}</strong></p>
+      </div>
+      <div *ngIf="upsellResponse === 'No'" class="col-md">
+        <p>2019 Registration:</p>
+        <p class="txt-indigo"><strong>$0</strong></p>
+      </div>
+      <div *ngIf="upsellResponse === 'Yes' && totalFundsNeeded > 0" class="col-md">
+        <p>Balance:</p>
+        <p class="txt-indigo"><strong>${{fundsNeededPlusUpsell}}</strong></p>
+      </div>
+      <div *ngIf="upsellResponse === 'No' && totalFundsNeeded > 0" class="col-md">
+        <p>Balance:</p>
+        <p class="txt-indigo"><strong>${{totalFundsDeci}}</strong></p>
+      </div>
+      <div *ngIf="upsellResponse === 'No' && totalFundsNeeded <= 0" class="col-md">
+        <p>Balance:</p>
+        <p class="txt-indigo"><strong>$0</strong></p>
+      </div>
+      <div *ngIf="upsellResponse === 'Yes' && totalFundsNeeded <= 0" class="col-md">
+        <p>Balance:</p>
+        <p class="txt-indigo"><strong>${{upsellPrice}}</strong></p>
+      </div>
+    </div>
+
+    <!-- Show correct titles for Teamfundraising -->
+    <div *ngIf="regResponse && checkinStatus !== 'committed' && checkinStatus !== 'paid' && this.noTeam === false">
+       
+      <div class="row titleRow" *ngIf="teamMetFunds === true">
+        <!--<div class="col-md" *ngIf="data.username || data.consUserName">-->
+        <!--<p>Username:</p>-->
+        <!--<h4 class="txt-indigo">{{data  .consUserName || data.username}}</h4>-->
+        <!--</div>-->
+        <div class="col-md" *ngIf="minimumGoal">
+          <p>Minimum required:</p>
+          <p class="txt-indigo"><strong>${{minimumGoal}}</strong></p>
+        </div>
+        <div class="col-md" *ngIf="amountRaised">
+          <p>Amount raised:</p>
+          <p class="txt-indigo"><strong>${{amountRaised}}</strong></p>
+        </div>
+        <!--<div class="col-md">-->
+          <!--<p>Excess Funds:</p>-->
+          <!--<h4 class="txt-indigo">{{teamExcessFundsDisplay}}</h4>-->
+        <!--</div>-->
+        
+        <div *ngIf="upsellResponse === 'Yes'" class="col-md">
+          <p>2019 Registration:</p>
+          <p class="txt-indigo"><strong>${{upsellPrice}}</strong></p>
+        </div>
+        <div *ngIf="upsellResponse === 'No'" class="col-md">
+          <p>2019 Registration:</p>
+          <p class="txt-indigo"><strong>$0</strong></p>
+        </div>
+        <div *ngIf="upsellResponse === 'No'" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>$0</strong></p>
+        </div>
+        <div *ngIf="upsellResponse === 'Yes'" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>${{upsellPrice}}</strong></p>
+        </div>
+        <!--<div *ngIf="upsellResponse === 'No' && totalFundsNeeded <= 0" class="col-md">-->
+          <!--<p>Balance:</p>-->
+          <!--<h4 class="txt-indigo">$0</h4>-->
+        <!--</div>-->
+        <!--<div *ngIf="upsellResponse === 'Yes' && totalFundsNeeded <= 0" class="col-md">-->
+          <!--<p>Balance:</p>-->
+          <!--<h4 class="txt-indigo">${{upsellPrice}}</h4>-->
+        <!--</div>-->
+      </div>
+
+      <div class="row titleRow" *ngIf="teamMetFunds === false">
+        <!--<div class="col-md" *ngIf="data.username || data.consUserName">-->
+        <!--<p>Username:</p>-->
+        <!--<h4 class="txt-indigo">{{data  .consUserName || data.username}}</h4>-->
+        <!--</div>-->
+        <div class="col-md" *ngIf="minimumGoal">
+          <p>Minimum required:</p>
+          <p class="txt-indigo"><strong>${{minimumGoal}}</strong></p>
+        </div>
+        <div class="col-md" *ngIf="amountRaised">
+          <p>Amount raised:</p>
+          <p class="txt-indigo"><strong>${{amountRaised}}</strong></p>
+        </div>
+        <!--<div class="col-md">-->
+          <!--<p>Excess Funds:</p>-->
+          <!--<h4 class="txt-indigo">{{teamExcessFundsDisplay}}</h4>-->
+        <!--</div>-->
+        <div *ngIf="upsellResponse === 'Yes'" class="col-md">
+          <p>2019 Registration:</p>
+          <p class="txt-indigo"><strong>${{upsellPrice}}</strong></p>
+        </div>
+        <div *ngIf="upsellResponse === 'No'" class="col-md">
+          <p>2019 Registration:</p>
+          <p class="txt-indigo"><strong>$0</strong></p>
+        </div>
+        <!--<div *ngIf="upsellResponse === 'Yes' && totalFundsNeeded > 0" class="col-md">-->
+          <!--<p>Balance:</p>-->
+          <!--<p class="txt-indigo"><strong>${{fundsNeededPlusUpsell}}</strong></p>-->
+        <!--</div>-->
+
+        <!-- Did not select upsell and team funds not met -->
+        <div *ngIf="upsellResponse === 'Yes' && totalTeamNeeded > 0 && fundsMet === true && noTeamExcess === false" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>{{teamFundBalancePlusUpsell}}</strong></p>
+        </div>
+
+        <div *ngIf="upsellResponse === 'Yes' && totalFundsNeeded > 0 && fundsMet === true && !noTeamExcess" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>{{fundsNeededPlusUpsell}}</strong></p>
+        </div>
+
+        <!-- Did select upsell and team funds not met -->
+        <div *ngIf="upsellResponse === 'Yes' && totalTeamNeeded > 0 && fundsMet === true && noTeamExcess === true" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>${{fundsNeededPlusUpsell}}</strong></p>
+        </div>
+
+        <!-- Did select upsell and team funds not met -->
+        <!--<div *ngIf="upsellResponse === 'Yes' && totalFundsNeeded > 0 && fundsMet === true && noTeamExcess === false" class="col-md">-->
+          <!--<p>Balance:</p>-->
+          <!--<p class="txt-indigo"><strong>${{fundsNeededPlusUpsell}}</strong></p>-->
+        <!--</div>-->
+        <!-- Met Fundraising and selected an upsell -->
+        <div *ngIf="upsellResponse === 'Yes' && totalTeamNeeded <= 0" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>${{upsellPrice}}</strong></p>
+        </div>
+        <!-- Did not select upsell and team funds not met -->
+        <div *ngIf="upsellResponse === 'No' && fundsMet === true" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>${{totalFundsDeci}}</strong></p>
+        </div>
+        <!-- Did not select upsell and team funds met -->
+        <div *ngIf="upsellResponse === 'No' && fundsMet === false && noTeamExcess === false" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>{{teamFundBalance}}</strong></p>
+        </div>
+        <!-- Met Fundraising and did NOT select an upsell -->
+        <div *ngIf="upsellResponse === 'No' && totalFundsNeeded <= 0 && noTeamExcess === true" class="col-md">
+          <p>Balance:</p>
+          <p class="txt-indigo"><strong>$0</strong></p>
+        </div>
+
+      </div>
+    </div>
+    <div class="row" *ngIf="fundsMet">
+      <!-- If upsellResponse is Yes and has NOT met fundraising goal, and team does NOT have funds -->
+      <div *ngIf="upsellResponse === 'Yes' && fundraisingMetGoal === false && teamMetFunds === false">
+        <p>Thanks for signing up for the 2019 Rexall&trade; OneWalk to Conquer Cancer&trade;!</p>
+        <p>
+          <strong>In order for you to complete the Event Check-In process and participate in the 2018 Rexall&trade; OneWalk to
+          Conquer Cancer&trade;, you must meet your $1,500 or $2,000 fundraising minimum.</strong>
+        </p>
+        <p>
+          You can use the Instant Self-Pledge button below to process payment for this donation immediately, or you can
+          use the Delayed Self-Pledge button to commit to paying this amount at a later time.
+        </p>
+        <p>
+          Please note that everyone who has not personally raised their minimum required amount is required to check-in
+          in person prior to joining the Rexall&trade; OneWalk to Conquer Cancer&trade;.
+        </p>
+        <p>
+          Due to team fundraising, those walkers who have not met their individual fundraising minimum prior the event
+          will have their eligibility to walk calculated based on their team's fundraising totals. If your team has not
+          raised sufficient funds to get you to your $1,500 or $2,000 fundraising minimum, you will be required to turn
+          in additional donations or complete a Delayed Self Pledge in order to walk.
+        </p>
+        <p>
+          Confirm your place by meeting your personal fundraising goal prior to Saturday September 8, 2018 (or Friday
+          September 7, 2018 if participating in the Night Walk).
+        </p>
+        <p>
+          You will also be able to pay for your next year's registration fee at the time you process your self
+          pledge.
+        </p>
+      </div>
+
+      <!-- If upsellResponse is Yes and has NOT met fundraising goal, but team has funds -->
+      <p *ngIf="upsellResponse === 'Yes' && fundraisingMetGoal === false && teamMetFunds === true">
+        Thanks for signing up for the 2019 Rexall&trade; OneWalk to Conquer Cancer&trade;!
+        <br>
+        <strong>
+          In order for you to complete the Event Check-In process and participate in the 2018 Rexall&trade; OneWalk to Conquer Cancer&trade;, you must meet your $1,500 or $2,000 fundraising minimum.
+        </strong>
+        <br>
+        Please note that everyone who has not personally raised their minimum required amount is required to check-in in person prior to joining the Rexall&trade; OneWalk to Conquer Cancer&trade;.
+        <br>
+        Due to team fundraising, those walkers who have not met their individual fundraising minimum prior the event will have their eligibility to walk calculated based on their team's fundraising totals. If your team has not raised sufficient funds to get you to your $1,500 or $2,000 fundraising minimum, you will be required to turn in additional donations or complete a Delayed Self Pledge in order to walk.
+        <br>
+        Confirm your place by meeting your personal fundraising goal prior to Saturday September 8, 2018 (or Friday September 7, 2018 if participating in the Night Walk).
+        <br>
+        You will also be able to pay for your next year's registration fee at the time you process your self-pledge.
+      </p>
+      <!--<p *ngIf="upsellResponse === 'No' && !fundraisingMetGoal">-->
+        <!--Take a moment to check the above for your current fundraising progress. If you have yet to reach the minimum fundraising goal, you may choose to make either an <strong>Instant Self-Pledge</strong> or a <strong>Delayed Self-Pledge</strong> to complete it. Please note that all Riders must reach the minimum fundraising goal prior to the start of The Ride-or commit to a Delayed Self-Pledge to participate in the event.-->
+      <!--</p>-->
+      <div *ngIf="upsellResponse === 'No' && !fundraisingMetGoal">
+        <p>Thanks for signing up for the 2019 Rexall&trade; OneWalk to Conquer Cancer&trade;!</p>
+        <p>
+          <strong>
+            In order for you to complete the Event Check-In process and participate in the 2018 Rexall&trade; OneWalk to Conquer Cancer&trade;, you must meet your $1,500 or $2,000 fundraising minimum.
+          </strong>
+        </p>
+        <p>
+          You can use the Instant Self-Pledge button below to process payment for this donation immediately, or you can
+          use the Delayed Self-Pledge button to commit to paying this amount at a later time.
+        </p>
+        <p>
+          Please note that everyone who has not personally raised their minimum required amount is required to check-in
+          in person prior to joining the Rexall&trade; OneWalk to Conquer Cancer&trade;.
+        </p>
+        <p>
+          Due to team fundraising, those walkers who have not met their individual fundraising minimum prior the event
+          will have their eligibility to walk calculated based on their team's fundraising totals. If your team has not
+          raised sufficient funds to get you to your $1,500 or $2,000 fundraising minimum, you will be required to turn
+          in additional donations or complete a Delayed Self Pledge in order to walk.
+        </p>
+        <p>
+          Confirm your place by meeting your personal fundraising goal prior to Saturday September 8, 2018 (or Friday
+          September 7, 2018 if participating in the Night Walk).
+        </p>
+      </div>
+
+    </div>
+    <div class="row" *ngIf="fundraisingMetGoal === true && upsellResponse === 'Yes' && checkinStatus !== 'committed' && checkinStatus !== 'paid'">
+      <p>
+        <strong>
+          Congratulations! You or your team has enough funds raised for you to complete the Event Check-In process!
+        </strong>
+        <br />
+        <br />
+          Complete your 2019 Rexall&trade; OneWalk to Conquer Cancer&trade; registration by selecting the Pay My Balance button below.
+      </p>
+    </div>
+
+    <!--BEGIN DSP / ISP -->
+    <div class="border-btm" *ngIf="hideDSP === true || hideISP === true"></div>
+
+    <!-- ISP ROW -->
+    <div class="row" *ngIf="hideISP === true">
+      <h4 *ngIf="!fundraisingMetGoal">Instant Self-Pledge</h4>
+      <h4 *ngIf="upsellResponse === 'Yes' && fundraisingMetGoal">Pay For My 2019 Registration</h4>
+      <p *ngIf="!fundraisingMetGoal">
+        An Instant Self-Pledge is the option for a Walker to pay the remainder of the minimum fundraising goal balance with a valid credit card. Should you decide to make an Instant Self-Pledge, you may also use this opportunity to pre-register for the 2019 Rexall&trade; OneWalk to Conquer Cancer&trade;.
+      </p>
+      <p *ngIf="upsellResponse === 'Yes' && fundraisingMetGoal">
+        Complete your 2019 Rexall&trade; OneWalk to Conquer Cancer&trade; registration by selecting the Pay My Balance button below.
+      </p>
+
+      <a class="ispDspBtn" *ngIf="fundsMet === false && upsellResponse === 'No'" target="_blank" href="{{ispURL}}">
+        <button class="btn-teal dsp-isp">Pay My Balance</button>
+      </a>
+
+      <a class="ispDspBtn" *ngIf="fundsMet === true && upsellResponse === 'Yes'" target="_blank" href="{{ispURLNoTR}}">
+        <button *ngIf="buttonFundsNeeded === false" class="btn-teal dsp-isp">Pay My Balance: ${{upsellPrice}}</button>
+      </a>
+
+      <a class="ispDspBtn" *ngIf="fundsMet === true && upsellResponse === 'No'" target="_blank" href="{{ispURLNoTR}}">
+        <button class="btn-teal dsp-isp">Pay My Balance: ${{totalFundsDeci}}</button>
+      </a>
+
+      <a class="ispDspBtn" *ngIf="totalFundsNeeded > 0 && upsellResponse === 'Yes' && noTeam === true" target="_blank" href="{{ispURL}}">
+        <button *ngIf="buttonFundsNeeded === true" class="btn-teal dsp-isp">Pay My Balance: ${{fundsNeededPlusUpsell}}</button>
+      </a>
+
+      <a class="ispDspBtn" *ngIf="upsellResponse === 'Yes' && noTeam === false && teamMetFunds === true" target="_blank" href="{{ispURL}}">
+        <button *ngIf="buttonFundsNeeded === true" class="btn-teal dsp-isp">Pay My Balance: ${{upsellPrice}}</button>
+      </a>
+
+      <a class="ispDspBtn" *ngIf="upsellResponse === 'Yes' && noTeam === false && teamMetFunds === false && noTeamExcess === true" target="_blank" href="{{ispURLNoTR}}">
+        <button *ngIf="buttonFundsNeeded === true" class="btn-teal dsp-isp">Pay My Balance: ${{fundsNeededPlusUpsell}}</button>
+      </a>
+
+      <a class="ispDspBtn" *ngIf="upsellResponse === 'Yes' && totalFundsNeeded > 0 && fundsMet === true && noTeamExcess === false" target="_blank" href="{{ispURL}}">
+        <button *ngIf="buttonFundsNeeded === true" class="btn-teal dsp-isp">Pay My Balance: {{teamFundBalancePlusUpsell}}</button>
+      </a>
+
+      <!--<a class="ispDspBtn" *ngIf="upsellResponse === 'Yes' && totalFundsNeeded > 0 && fundsMet === true && noTeamExcess === true" target="_blank" href="{{ispURLNoTR}}">-->
+        <!--<button *ngIf="buttonFundsNeeded === true" class="btn-teal dsp-isp">Pay My Balance: {{fundsNeededPlusUpsell}}</button>-->
+      <!--</a>-->
+    </div>
+
+    <!-- DSP ROW -->
+    <div class="row" *ngIf="hideDSP === true">
+      <h4>Delayed Self-Pledge</h4>
+      <p>
+        A Delayed Self-Pledge is the option for a Walker to commit to paying the remainder of the minimum fundraising goal balance at a later date. Should you decide to make a Delayed Self-Pledge, an initial deposit of $2 will automatically be charged to your credit card. You will then be given an additional eight weeks starting from the first day of the Rexall&trade; OneWalk to Conquer Cancer&trade;, Friday September 7, 2018, to continue fundraising. At the conclusion of those eight weeks, any outstanding minimum fundraising goal balance will be charged to your credit card. You may also use this opportunity to pre-register for the 2019 Rexall&trade; OneWalk to Conquer Cancer&trade;.
+      </p>
+      <a class="ispDspBtn" target="_blank" href="{{dspURL}}">
+        <button class="btn-teal dsp-isp">Pay $2 Deposit</button>
+      </a>
+    </div>
+
+    <div class="border-btm" *ngIf="hideDSP === true || hideISP === true"></div>
+    <!-- END DSP / ISP -->
+
+    <div class="row" *ngIf="fundsMet">
+      <h4>Recheck My Status</h4>
+      <p>Have you made an Instant Self-Pledge or Delayed Self-Pledge in the last few minutes? Click the "Update Status" button below to refresh the page and display your current fundraising progress.</p>
+      <button (click)="reload()" class="btn-teal updateBtn">Update Status</button>
+    </div>
+
+    <div class="border-btm"></div>
+
+  </div>
+  <div class="row bottom-nav-row">
+    <div class="col-12 form-container">
+      <div class="btn-container">
+        <button
+          mat-raised-button
+          color="accent"
+          class="prev-btn button-font"
+          (click)="previousFlowStep()"
+          *ngIf="checkInCommitted">
+          Back
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          class="next-btn button-font"
+          (click)="nextFlowStep()"
+          [disabled]="fundsMet">
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

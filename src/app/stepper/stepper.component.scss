@@ -1,0 +1,194 @@
+@import '../../styles.scss';
+
+.stepper-container {
+  position: relative;
+  max-width: 800px;
+  display: block;
+  margin: 0 auto;
+
+  padding: 0 10px 40px;
+
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  .stepper-each {
+    max-width: 16.5%;
+    width: 100%;
+    display: inline-block;
+    vertical-align: top;
+    @media screen and (max-width: 768px) {
+      max-width: 16.3%;
+    }
+    @media screen and (max-width: 400px) {
+      max-width: 16%;
+    }
+    @media screen and (max-width: 365px) {
+      max-width: 23%;
+    }
+
+    .step {
+      background: #dadada;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: block;
+      margin: 0 auto 15px;
+      text-align: center;
+      line-height: 2.6;
+      color: #fff;
+    }
+
+    .stepper-txt {
+      color: #909090;
+      font-size: 12px;
+      text-align: center;
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  .stepper-each.active {
+    .step {
+      background: $indigo;
+    }
+  }
+  //.stepper-each.active.current .step {
+  //  background-color: #dadada;
+  //}
+  @keyframes bgColor {
+    0% {
+      background: #dadada;
+      -webkit-animation-timing-function: steps(1, end);
+      -moz-animation-timing-function: steps(1, end);
+      -ms-animation-timing-function: steps(1, end);
+      -o-animation-timing-function: steps(1, end);
+      animation-timing-function: steps(1, end);
+    }
+    100% {background: $indigo;}
+  }
+
+  .stepper-each.active.current {
+    .step {
+      animation: bgColor 1.8s linear;
+      -webkit-animation-fill-mode: forwards;
+      -moz-animation-fill-mode: forwards;
+      -o-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+      //animation-delay: 10s;
+      //background:  $indigo;
+    }
+    .stepper-txt {
+      color: $indigo;
+      font-family: "Open Sans", Helveticca, sans-serif;
+      font-weight: 600;
+    }
+  }
+
+  .bar {
+    border-bottom: 5px solid #dadada;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 650px;
+    @media screen and (max-width: 768px) {
+      width: 82%;
+    }
+    @media screen and (max-width: 400px) {
+      display: none;
+    }
+  }
+
+  .progress-full,
+  .progress-2,
+  .progress-3,
+  .progress-4,
+  .progress-5,
+  .progress-6,
+  .progress-7,
+  .progress-8 {
+    border-bottom: 5px solid $indigo;
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    right: 0;
+    width: 100%;
+    display: block;
+    z-index: -1;
+    @media screen and (max-width: 400px) {
+      display: none;
+    }
+  }
+  @keyframes widthAnimate2 {
+    from {max-width: 0;}
+    to {max-width: 16%;}
+  }
+  @keyframes widthAnimate3 {
+    from {max-width: 16%;}
+    to {max-width: 30%;}
+  }
+  @keyframes widthAnimate4 {
+    from {max-width: 16%;}
+    to {max-width: 31.4%;}
+  }
+  @keyframes widthAnimate5 {
+    from {max-width: 31.4%;}
+    to {max-width: 47.5%;}
+  }
+  @keyframes widthAnimate6 {
+    from {max-width: 47.5%;}
+    to {max-width: 64%;}
+  }
+  @keyframes widthAnimate7 {
+    from {max-width: 64%;}
+    to {max-width: 80%;}
+  }
+
+  .progress-2 {
+    animation-name: widthAnimate2;
+    animation-duration: 2s;
+    max-width: 16%;
+  }
+  .progress-3 {
+    animation-name: widthAnimate3;
+    animation-duration: 2s;
+    max-width: 30%;
+  }
+  .progress-4 {
+    animation-name: widthAnimate4;
+    animation-duration: 2s;
+    max-width: 31.4%;
+  }
+
+  .progress-5 {
+    animation-name: widthAnimate5;
+    animation-duration: 2s;
+    max-width: 47.5%;
+    //transition: 0.3s all;
+    @media screen and (max-width: 768px) { }
+  }
+  .progress-6 {
+    animation-name: widthAnimate6;
+    animation-duration: 2s;
+    max-width: 64%;
+    @media screen and (max-width: 768px) {
+      max-width: 62%;
+    }
+  }
+  .progress-7 {
+    max-width: 80%;
+  }
+  @media screen and (max-width: 400px) {
+    padding-bottom: 0;
+  }
+}
+
+.hide {
+  display: none;
+}

@@ -1,0 +1,94 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!surveyResults">
+	<div class="spinner-inner">
+		<mat-spinner></mat-spinner>
+	</div>
+</div>
+
+<div class="container" id="step-06" *ngIf="data">
+  <div class="row">
+    <div class="form-container">
+      <h2 class="txt-indigo">Walk On in 2020!</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-container">
+      <img class="img-fluid" src="assets/images/OWTO19_OCI.png" alt="Upsell Pre-Reg">
+    </div>
+  </div>
+
+  <div class="row" >
+
+    <form class="form-container" [formGroup]="upsellForm" *ngIf="surveyResults.getSurveyResponsesResponse">
+      <div class="survey-res">
+        <div class="form-group">
+          <div class="form-container">
+            <h2 class="txt-indigo">Michelle Obama, You and 3 Friends!</h2>
+          </div>
+          <p>
+            Register for 2020 today for a chance to win 4 tickets to see Michelle Obama, Friday October 11, 2019 at First Ontario Centre, Hamilton.  Limousine transportation and Dinner for 4 included!  Limited time offer ends September 7. 2019*
+          </p>
+          <p>
+            Winner will be announced at the live Draw at Boyd Conservation Area, Princess Margaret Cancer Foundation tent at 4 p.m. September 7. Winner of the 4 tickets will be advised by telephone or email directly.
+          </p>
+          <p>
+            <!-- <strong class="txt-teal">Renew your commitment to conquering cancer today!</strong> -->
+            <!-- <br /> -->
+            <strong class="txt-teal">Join us in 2020!</strong>            
+          </p>
+          <mat-radio-group class="route-radio-group" formControlName="upsellSelect" [(ngModel)]="upsellResults" >
+            <mat-radio-button
+              required
+              class="route-radio-button"
+              color="accent"
+              *ngFor="let upsell of upsells"
+              [value]="upsell.value">
+              {{upsell.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="Error === true">
+            Upsell is required
+          </div>
+          <br />
+          <p>
+            <i>*Register for 2020 today and win a chance to receive 4 tickets to see Former First Lady, Michelle Obama, Friday October 11, 2019 at First Ontario Centre, Hamilton, courtesy of TINEPUBLIC.  Limousine transportation to and from the event (from one central pick up location) and a delicious dinner for 4 at a local restaurant will be included.  Total Value: approx. $1,500 </i>
+          </p>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <!-- <div class="row">
+    <div class="form-container">
+      <img class="img-fluid" src="assets/images/RCTO_Upsell_Image.jpg" alt="Upsell Pre-Reg">
+    </div>
+  </div> -->
+  <div class="row">
+    <div class="form-container">
+      <div class="border-btm"></div>
+    </div>
+  </div>
+
+  <div class="row bottom-nav-row" *ngIf="surveyResults">
+    <div class="col-12 form-container">
+      <div class="btn-container">
+        <button mat-raised-button color="accent" class="prev-btn button-font" (click)="previousFlowStep()">
+          Back
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          class="next-btn button-font"
+          (click)="updateSurveyRes()"
+          [disabled]="upsellForm.invalid">
+          Next
+        </button>
+      </div>
+      <div class="save-col">
+        <a (click)="saveSurveyResponses()" class="save-later float-right text-uppercase">Save For Later</a>
+      </div>
+    </div>
+  </div>
+</div>

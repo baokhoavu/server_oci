@@ -1,0 +1,306 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!surveyResults.getSurveyResponsesResponse">
+  <div class="spinner-inner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<div class="container" id="step-03">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-center">Important Information</h2>
+      <p>
+        The following information allows us to give our Walkers the best possible event experience. 
+      </p>
+    </div>
+  </div>
+
+
+  <div class="row" *ngIf="surveyResults.getSurveyResponsesResponse">
+
+    <form class="form-container" [formGroup]="step03Form" *ngIf="step03Form">  
+
+      <div class="survey-res" *ngFor="let res of surveyResults.getSurveyResponsesResponse.responses">
+        
+        <!-- Emergency Name -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question8">        
+
+          <p>
+            <strong>Emergency Contact Full Name *</strong>
+          </p>
+          <mat-form-field class="mat-input">
+          <input            
+            required
+            matInput
+            minlength="5"
+            placeholder="Emergency Contact Full Name"
+            value="{{emergencyNameRes}}"
+            formControlName="emergencyName"
+            [(ngModel)]="emergencyNameRes"
+            >
+            <mat-error>
+              <!-- Emergency name cannot be less than 5 characters. -->
+            </mat-error>
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error === true">
+            Emergency name cannot be less than 5 characters.
+          </div>
+        </div>
+
+        <!-- Emergency Number -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question9">
+          <p>
+            <strong>Emergency Contact Phone # *</strong>
+          </p>
+          <mat-form-field class="mat-input">
+          <input
+            matInput
+            required
+            type="tel"
+            minlength="5"
+            placeholder="Emergency Contact Phone #"
+            value="{{emergencyPhoneRes}}"
+            formControlName="emergencyPhone"
+            [(ngModel)]="emergencyPhoneRes"
+            >                    
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error2 === true">
+            Emergency Contact Phone is required.
+          </div>
+        </div>
+
+        <!-- Years attended -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question1">
+          
+          <p>
+            <strong>{{res.questionText}}*</strong>
+          </p>
+          <mat-form-field>
+            <mat-select
+              color="accent"
+              class="mat-select"
+              placeholder="Years Attended"
+              [(ngModel)]="attendanceRes"
+              formControlName="yearsAttended">
+              <p class="change-txt">
+                <small>Please make a selection:</small>
+              </p>
+              <mat-option *ngFor="let year of years" [value]="year.value">
+                {{ year.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error3 === true">
+            Years Attended is required.
+          </div>
+        </div>
+
+        <!-- Jersey sizes -->
+        <!-- <div class="form-group" *ngIf="res.questionId === dataService.question18">
+          <p>
+            <strong>{{res.questionText}}.* </strong>
+            <a class="txt-blue sizing-link" target="_blank" href="assets/images/SU18_CUSTOM_RTCC_Size_Chart.pdf">(View sizing guide)</a>
+          </p>
+          <mat-form-field>
+            <mat-select formControlName="jerseySizes" class="mat-select" placeholder="Jersey Size" [(ngModel)]="jerseyRes" >
+              <p class="change-txt">
+                <small>Please make a selection:</small>
+              </p>
+              <mat-option *ngFor="let jersey of jerseySelect" [value]="jersey.value">
+                {{ jersey.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error4 === true">
+            Jersey Size is required.
+          </div>
+        </div> -->
+
+        <!-- Cancer Survivor -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question14">
+          <p>
+            <strong>{{res.questionText}}</strong> OneWalk uses a special lanyard to honour cancer survivors. If you are a cancer survivor or currently under going treatment and would like to be recognized, please check this box.
+          </p>
+          <mat-radio-group class="route-radio-group" formControlName="cancerSurvivor" [(ngModel)]="cancerRes" >
+            <mat-radio-button
+              class="route-radio-button"
+              color="accent"
+              *ngFor="let yesNo of matSelect"
+              [value]="yesNo.value">
+              {{yesNo.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="Error4 === true">
+            Cancer Selection is required.
+          </div>
+        </div>
+
+        <!-- Physical Ailments -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question13">
+          <p>
+            <strong>{{res.questionText}}</strong>
+          </p>
+          <mat-radio-group class="route-radio-group" formControlName="physicalAilment" [(ngModel)]="physicalRes" >
+            <mat-radio-button
+              class="route-radio-button"
+              color="accent"
+              *ngFor="let yesNo of matSelect"
+              [value]="yesNo.value">
+              {{yesNo.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="Error5 === true">
+            Selection is required.
+          </div>
+          <p>
+            If you are registered for the Day Trip, there will be parts of the route that will have hills, uneven ground and other obstacles. The trail will have detours available. If you wish to change to City Nights, please contact your OneWalk coaches at [416] 815-WALK [9255].
+          </p>
+        </div>
+
+        <!-- Vegetarian -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question15">
+          <!-- <p>
+            <strong>If you require a vegetarian meal, please select one of the options below.</strong> 
+            Gluten free options will be available at every meal/snack area. If you have any other dietary restrictions, please contact the office at 
+            <a class="link-teal" href="tel:1-416-815-9255">[416] 815-WALK [9255]</a>.
+          </p> -->
+          <p>
+            <strong>{{res.questionText}}</strong>
+          </p>
+          <mat-radio-group class="route-radio-group" formControlName="vegMeals" [(ngModel)]="vegRes" >
+            <mat-radio-button
+              class="route-radio-button"
+              color="accent"
+              *ngFor="let yesNo of matSelect"
+              [value]="yesNo.value">
+              {{yesNo.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="Error6 === true">
+            Vegetarian Selection is required.
+          </div>
+          <p>
+            Gluten-free options will be available at every meal and snack area.
+          </p>
+          <p>
+            <i>Note: We recommend that Walkers with other special dietary restrictions arrange their own food and to contact your OneWalk coaches with any questions they may have about meal options at 
+              <a class="link-teal" href="tel:1-416-815-9255">[416] 815-WALK [9255]</a>.
+            </i>
+          </p>
+        </div>
+
+        <!-- Route Selection -->
+        <!-- <div class="form-group" *ngIf="res.questionId === dataService.question29">
+          <p>
+            <strong>{{res.questionText}}</strong>
+          </p>
+          <mat-form-field>
+            <mat-select formControlName="routeSelect" class="mat-select" placeholder="Select Route" [(ngModel)]="routeRes" >
+              <p class="change-txt">
+                <small>Please make a selection:</small>
+              </p>
+              <mat-option *ngFor="let route of routes" [value]="route.value">
+                {{ route.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>          
+          <div class="error-msg" *ngIf="Error7 === true">
+            Route Selection is required.
+          </div>
+        </div> -->
+
+        <!-- Shuttle 1 -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question19 && dataService.participationType !== 'VIRTUAL WALKER' && dataService.participationType !== 'ONEWALK CREW' && dataService.participationType !== '15 KM ONEWALK CITY NIGHTS'">
+
+          <div class="border-btm"></div>
+          <h4>
+            Shuttles Options
+          </h4>
+          <p>
+            We provide the following shuttle options to our walkers to Boyd Conservation Area on Saturday morning. Please select the shuttle(s) you require. Note: you must reserve your place during Online Check-In.
+          </p>
+          <p>
+            <strong>{{res.questionText}}</strong>
+          </p>
+          <mat-radio-group class="route-radio-group" formControlName="shuttle1" [(ngModel)]="shuttleRes" >
+            <mat-radio-button
+              class="route-radio-button"
+              color="accent"
+              *ngFor="let shuttleAnswer of shuttleAnswer1"
+              [value]="shuttleAnswer.value">
+              {{shuttleAnswer.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="Error8 === true">
+            Shuttle Selection is required.
+          </div>
+        </div>
+
+        <!-- Shuttle 2 -->
+        <div class="form-group" *ngIf="res.questionId === dataService.question20 && dataService.participationType !== 'VIRTUAL WALKER' && dataService.participationType !== 'ONEWALK CREW' && dataService.participationType !== '15 KM ONEWALK CITY NIGHTS'">
+          <p>
+            <strong>{{res.questionText}}</strong>
+          </p>
+          <mat-radio-group class="route-radio-group" formControlName="shuttle2" [(ngModel)]="shuttleRes2" >
+            <mat-radio-button
+              class="route-radio-button"
+              color="accent"
+              *ngFor="let shuttleAnswer of shuttleAnswer2"
+              [value]="shuttleAnswer.value">
+              {{shuttleAnswer.viewValue}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="Error9 === true">
+            Shuttle Selection is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="border-btm"></div>
+        <p>Packets will not be mailed out. Packet Pick-Up Times: </p>
+        <p>
+          <strong>ONEWALK OFFICE:
+          <br />
+          40 Eglinton Ave. East, Suite 502, 
+          <br />
+          Toronto, ON, M4P 3A2</strong>
+        </p>
+        <ul>
+          <li>Monday, August 26 – Friday August 30 –  9:00 a.m.-5:00 p.m.</li>
+          <li>Tuesday, September 3 – 9 a.m.-7 p.m.</li>
+          <li>Wednesday, September 4 – 9:00 a.m.-7:00 p.m.</li>
+        </ul>
+        <p>
+          <strong>CITY NIGHTS:</strong>
+        </p>
+        <p>Friday, September 6, 2019 - 3:30 p.m. to 6:30 p.m.</p>
+        <p>
+          <strong>DAY TRIP:</strong>
+        </p>
+        <p>Saturday, September 7, 2019 - 6:30 a.m. to 8:30 a.m.</p>
+      </div>
+    </form>
+  </div>
+
+  <div class="row" *ngIf="surveyResults.getSurveyResponsesResponse">
+    <div class="col-12">
+      <div class="btn-container">
+        <button mat-raised-button color="accent" class="prev-btn" (click)="previousFlowStep()">
+          Back
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          class="next-btn"          
+          (click)="updateSurveyRes()">
+          Next
+        </button>
+      </div>
+      <div class="save-col">
+        <a (click)="saveSurveyRes()" class="save-later float-right text-uppercase">Save For Later</a>
+      </div>
+    </div>
+  </div>
+</div>

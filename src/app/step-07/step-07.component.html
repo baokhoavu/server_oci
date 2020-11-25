@@ -1,0 +1,165 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="loading">
+    <div class="spinner-inner">
+        <mat-spinner></mat-spinner>
+    </div>
+</div>
+
+<div class="container" id="step-07">
+    <div class="form-container">
+        <div class="row">
+            <h2>Your Fundraising Snapshot</h2>
+            <div class="row titleRow" *ngIf="checkinStatus !== 'paid' && checkinStatus !== 'committed'">
+                <div class="col-md">
+                    <p>Minimum required:</p>
+                    <p class="txt-indigo">
+                        <strong>${{ currentParticipantGoal }}</strong>
+                    </p>
+                </div>
+                <div class="col-md">
+                    <p>Amount raised:</p>
+                    <p class="txt-indigo">
+                        <strong>${{ currentParticipantRaised }}</strong>
+                    </p>
+                </div>
+                <div *ngIf="upsellResponse === 'Yes'" class="col-md">
+                    <p>2020 Registration:</p>
+                    <p class="txt-indigo">
+                        <strong>${{ totalUpsellNumber }}</strong>
+                    </p>
+                </div>
+                <div *ngIf="upsellResponse === 'No'" class="col-md">
+                    <p>2020 Registration:</p>
+                    <p class="txt-indigo"><strong>$0</strong></p>
+                </div>
+                <div *ngIf="upsellResponse === 'Yes' && totalTeamNeeded > 0" class="col-md">
+                    <p>Remaining Balance:</p>
+                    <p class="txt-indigo">
+                        <strong>${{ totalTeamNeeded + totalUpsellNumber }}</strong>
+                    </p>
+                </div>
+                <div *ngIf="upsellResponse === 'No' && totalTeamNeeded > 0" class="col-md">
+                    <p>Remaining Balance:</p>
+                    <p class="txt-indigo">
+                        <strong>${{ totalTeamNeeded }}</strong>
+                    </p>
+                </div>
+                <div *ngIf="upsellResponse === 'No' && totalTeamNeeded < 1" class="col-md">
+                    <p>Remaining Balance:</p>
+                    <p class="txt-indigo"><strong>$0</strong></p>
+                </div>
+                <div *ngIf="upsellResponse === 'Yes' && totalTeamNeeded < 1" class="col-md">
+                    <p>Remaining Balance:</p>
+                    <p class="txt-indigo">
+                        <strong>${{ totalUpsellNumber }}</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div *ngIf="(totalTeamNeeded < 1 && upsellResponse === 'No') || (checkinStatus === 'paid' || checkinStatus === 'committed')">
+                <h4>
+                    Congratulations! You have met your fundraising commitment and you can complete Online Check-in. Thank you for supporting the Rexall™ OneWalk to Conquer Cancer™.
+                    <br/><br/> 
+                    Thank you for supporting the Rexall™ OneWalk to Conquer Cancer™. Click the 'Next' button to complete your Online Check-In.
+                </h4>
+            </div>
+            <div *ngIf="(totalTeamNeeded < 1 && upsellResponse === 'Yes') && (checkinStatus !== 'paid' && checkinStatus !== 'committed')">
+                <h4>
+                    Congratulations! You or your team has enough funds raised for you to complete the Event Check-In process! 
+                    <br/><br/> 
+                    Complete you’re registration for The Weekend To Conquer Cancer 2020 by selecting the Pay My Balance button below.
+                </h4>
+            </div>
+            <div *ngIf="upsellResponse === 'No' && checkinStatus !== 'paid' && checkinStatus !== 'committed'">
+                <p>                               
+                    In order for you to complete the Event Check-In process and participate in the 2019 Rexall™ OneWalk to Conquer Cancer™, you must meet your fundraising minimum.
+                    <br/> <br/>
+                    HOW DOES TEAM FUNDRAISING HELP GET YOU TO THE STARTING LINE?
+                    <br/> <br/>                    
+                    Any walker who has not met their individual fundraising minimum by Friday September 6 will have their eligibility to walk calculated based on their TEAM fundraising total. However, if your team has not raised sufficient funds to get you to your fundraising minimum, you will be required to turn in additional donations or complete a Delayed Self Pledge in order to walk.  Check in with your team captain before completing Online Check-In or contact our OneWalk Coaches <a href="tel:+4168159255">[416] 815-WALK [9255]</a> or <a href="mailto:onewalkcoaches@onewalk.ca">onewalkcoaches@onewalk.ca</a>.
+                    <br/> <br/>
+                    You can use the Instant Self-Pledge button below to process payment for this donation immediately, or you can use the Delayed Self-Pledge button to commit to paying this amount at a later time. 
+                    <br/> <br/>
+                    Please note that everyone who has not personally raised their minimum required amount is required to check-in in person prior to joining the Rexall™ OneWalk to Conquer Cancer™. 
+                    <br/> <br/>
+                    Confirm your place by meeting the fundraising minimum prior to Friday, September 6, 2019 if you’re participating in City Nights, or Saturday September 7, 2019 if you’re participating in Day Trip.
+                </p>
+            </div>
+            <div *ngIf="upsellResponse === 'Yes' && checkinStatus !== 'paid' && checkinStatus !== 'committed'">
+                <p>                                    
+                    In order for you to complete the Event Check-In process and participate in the 2019 Rexall™ OneWalk to Conquer Cancer™, you must meet your fundraising minimum.
+                    <br/> <br/>
+                    HOW DOES TEAM FUNDRAISING HELP GET YOU TO THE STARTING LINE?
+                    <br/> <br/>
+                    Any walker who has not met their individual fundraising minimum by Friday September 6 will have their eligibility to walk calculated based on their TEAM fundraising total. However, if your team has not raised sufficient funds to get you to your fundraising minimum, you will be required to turn in additional donations or complete a Delayed Self Pledge in order to walk.  Check in with your team captain before completing Online Check-In or contact our OneWalk Coaches <a href="tel:+4168159255">[416] 815-WALK [9255]</a> or <a href="mailto:onewalkcoaches@onewalk.ca">onewalkcoaches@onewalk.ca</a>.
+                    <br/> <br/>
+                    You can use the Instant Self-Pledge button below to process payment for this donation immediately, or you can use the Delayed Self-Pledge button to commit to paying this amount at a later time. 
+                    <br/> <br/>
+                    Confirm your place by meeting the fundraising minimum prior to Friday, September 6, 2019 if you’re participating in City Nights, or Saturday September 7, 2019 if you’re participating in Day Trip.
+                    <br/> <br/>
+                    You will also be able to pay for your next year's registration fee at the time you process your instant self-pledge. 
+                    <br/> <br/>
+                    <!-- <i>If you are participating on a team that has enough team funds to cover all walkers, please call our walk office to verify your walker status before completing the Delayed Self-Pledge. If you are raising your funds individually, and need 60 days to complete your fundraising, please continue forward.</i> -->
+                </p>
+            </div>            
+            <div *ngIf="totalTeamNeeded > 0 && checkinStatus !== 'paid' && checkinStatus !== 'committed' || (upsellResponse === 'Yes' && checkinStatus !== 'paid' && checkinStatus !== 'committed')">
+                <h4>
+                    Instant Self-Pledge
+                </h4>
+                <p>
+                    An Instant Self-Pledge allows you to pay the remainder of the minimum fundraising balance with a valid credit card. Should you decide to make an Instant Self-Pledge, you may also use this opportunity to pre-register for The Weekend To Conquer Cancer 2020.
+                    <br><br>
+                    <a class="ispDspBtn" *ngIf="(upsellResponse === 'Yes' && currentParticipantRaised >= currentParticipantGoal)" target="_blank" href="{{ ispURLNoTR + tailISP }}">
+                        <button class="btn-teal dsp-isp">Pay My Balance ${{totalTeamNeeded + totalUpsellNumber}}</button>
+                    </a>
+                    <a class="ispDspBtn" *ngIf="(upsellResponse === 'Yes' && currentParticipantGoal > currentParticipantRaised )" target="_blank" href="{{ ispURLNoTR + tailISP}}">
+                        <button class="btn-teal dsp-isp">Pay My Balance ${{totalTeamNeeded + totalUpsellNumber}}</button>
+                    </a>
+                    <a class="ispDspBtn" *ngIf="(upsellResponse === 'No' && totalTeamNeeded > 0 )" target="_blank" href="{{ ispURLNoTR + tailISP}}">
+                        <button class="btn-teal dsp-isp">Pay My Balance ${{totalTeamNeeded + totalUpsellNumber}}</button>
+                    </a>
+                </p>
+            </div>
+
+            <div *ngIf="(totalTeamNeeded > 0 && checkinStatus !== 'paid' && checkinStatus !== 'committed') || (currentParticipantRaised < currentParticipantGoal && checkinStatus !== 'paid' && checkinStatus !== 'committed')">
+                <h4>
+                    Delayed Self-Pledge
+                </h4>
+                <p>
+                    A Delayed Self-Pledge is the option for a Walker to commit to paying the remainder of the fundraising minimum balance at a later date. Should you decide to make a Delayed Self-Pledge, an initial deposit of $2 will automatically be charged to your credit card. You will then be given an additional eight weeks starting from the first day of the Rexall™ OneWalk to Conquer Cancer™, Friday September 6, 2019, to continue fundraising. At the conclusion of those eight weeks, any remaining balance will be charged to your credit card.
+                    <br><br>
+                    <a class="ispDspBtn" target="_blank" href="{{ dspURL + tailDSP }}">
+                        <button class="btn-teal dsp-isp"> Pay $2 Deposit  </button>
+                    </a>
+                </p>                
+            </div>
+
+
+            <div *ngIf="checkinStatus !== 'paid' && checkinStatus !== 'committed'">
+                <h4>
+                    Recheck My Status
+                </h4>
+                <p>
+                    Have you made an Instant Self-Pledge or Delayed Self-Pledge in the last few minutes? Click the "Update Status" button below to refresh the page and display your current fundraising progress. <br><br>
+                    <button (click)="reload()" class="btn-teal updateBtn">Update Status</button>
+                </p>                
+            </div>
+        </div>
+    </div>
+
+    <div class="border-btm"></div>
+</div>
+<div class="row bottom-nav-row">
+    <div class="col-12 form-container">
+        <div class="btn-container">
+            <button mat-raised-button color="accent" class="prev-btn button-font" (click)="previousFlowStep()">
+          Back
+        </button>
+            <button mat-raised-button color="accent" class="next-btn button-font" (click)="nextFlowStep()" [disabled]="!nextStepOk">
+          Next
+        </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,171 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!dataService">
+  <div class="spinner-inner">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
+
+<div class="container" id="step-02" *ngIf="dataService">
+  <div class="row">
+    <div class="col-12">
+      <div class="pg-container">
+        <h2 class="update-intro">Update Your Information</h2>
+      </div>
+    </div>
+    <div class="col-12" *ngIf="hasPhoto === true">
+      <div class="image-cropper">
+        <img class="text-center" src="{{personalPhotoUrl}}" alt="Personal Photo">
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="consData">
+    <form class="form-container" [formGroup]="step02Form" *ngIf="step02Form">
+      <div class="form-group">
+        <p>
+          To get started, review your contact information below.
+        </p>
+        <p>
+          You are registered as <strong class="text-purple">{{ dataService.participationType }}.</strong>
+        </p>
+        <p>
+          <strong class="text-purple">          
+            To change your route option please call us at <a href="tel:1-416-815-9255">[416] 815-WALK [9255]</a> and we’ll make the adjustment for you.
+          </strong>
+        </p>
+      </div>
+      <div class="form-group" *ngIf="dataService.teamName">
+        <p>
+          Team name: <strong>{{ dataService.teamName }}</strong>
+        </p>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <mat-form-field class="mat-input">
+            <input [errorStateMatcher]="matcher" matInput required placeholder="First Name" pattern="[a-zA-Z ]*" value="{{firstName}}" [(ngModel)]="firstName" formControlName="firstName">
+            <button mat-button *ngIf="firstName" matSuffix mat-icon-button aria-label="Clear" (click)="firstName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="step02Form.controls.firstName.hasError('pattern')">
+              Sorry, numbers are not allowed in this field.
+            </mat-error>
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error === true">
+            First name is required.
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field class="mat-input">
+            <input [errorStateMatcher]="matcher" matInput required placeholder="Last Name" pattern="[a-zA-Z ]*" value="{{lastName}}" [(ngModel)]="lastName" formControlName="lastName">
+            <button mat-button *ngIf="lastName" matSuffix mat-icon-button aria-label="Clear" (click)="lastName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-error *ngIf="step02Form.controls.lastName.hasError('pattern')">
+              Sorry, numbers are not allowed in this field.
+            </mat-error>
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error2 === true">
+            Last name is required.
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="mat-input">
+          <input matInput required placeholder="Street Address Line 1" value="{{primaryAddress1}}" [(ngModel)]="primaryAddress1" formControlName="liveAddress1">
+          <button mat-button *ngIf="primaryAddress1" matSuffix mat-icon-button aria-label="Clear" (click)="primaryAddress1=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="error-msg" *ngIf="Error3 === true">
+          Street address is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="mat-input specialAddress">
+          <input matInput placeholder="Street Address Line 2" value="{{primaryAddress2}}" [(ngModel)]="primaryAddress2" formControlName="liveAddress2">
+          <button mat-button *ngIf="primaryAddress2" matSuffix mat-icon-button aria-label="Clear" (click)="primaryAddress2=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="mat-input">
+          <input matInput required placeholder="City" value="{{primaryCity}}" [(ngModel)]="primaryCity" formControlName="liveCity">
+          <button mat-button *ngIf="primaryCity" matSuffix mat-icon-button aria-label="Clear" (click)="primaryCity=''">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <div class="error-msg" *ngIf="Error4 === true">
+          City is required.
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <mat-form-field class="mat-input">
+            <input matInput required placeholder="State/Province" value="{{primaryState}}" [(ngModel)]="primaryState" formControlName="liveState">
+            <button mat-button *ngIf="primaryState" matSuffix mat-icon-button aria-label="Clear" (click)="primaryState=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error5 === true">
+            Province is required.
+          </div>
+        </div>
+        <div class="form-group col-md-6">
+          <mat-form-field class="mat-input">
+            <input matInput required placeholder="Postal / Zip Code" value="{{primaryZip}}" [(ngModel)]="primaryZip" formControlName="liveZip">
+            <button mat-button *ngIf="primaryZip" matSuffix mat-icon-button aria-label="Clear" (click)="primaryZip=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="error-msg" *ngIf="Error6 === true">
+            Zip / Postal Code is required.
+          </div>
+        </div>
+      </div>
+      <!-- Gender Selection -->
+      <div class="form-row">
+        <div class="form-group col-12">
+          <p>
+            <strong>Please select your gender:</strong>
+          </p>
+          <!-- <mat-radio-group class="route-radio-group" formControlName="genderSelect" [(ngModel)]="gender">
+            <mat-radio-button class="route-radio-button" color="primary" *ngFor="let gender of genderSelector">
+              {{dataService.gender}}
+            </mat-radio-button>
+          </mat-radio-group> -->
+          <mat-radio-group class="route-radio-group" formControlName="genderSelect" [(ngModel)]="gender">
+              <mat-radio-button class="route-radio-button" color="primary" *ngFor="let gender of genderSelecter" [value]="gender.value">
+                  {{gender.viewValue}}
+              </mat-radio-button>
+          </mat-radio-group>
+          <div class="error-msg" *ngIf="Error7 === true">
+              Gender is required.
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="row">
+    <div class="form-container">
+      <div class="border-btm"></div>
+    </div>
+  </div>
+  <div class="row" *ngIf="consData">
+    <div class="col-12">
+      <div class="btn-container">
+        <button
+          mat-raised-button
+          color="accent"
+          class="next-btn button-font"
+          (click)="updateUser()">
+          Next
+        </button>
+      </div>
+      <div class="save-col">
+        <a (click)="updateUserSave()" class="save-later float-right text-uppercase">Save For Later</a>
+      </div>
+    </div>
+  </div>
+</div>

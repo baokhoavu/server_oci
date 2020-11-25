@@ -1,0 +1,131 @@
+<app-stepper></app-stepper>
+
+<!-- Preloader -->
+<div class="mat-spinner-container" *ngIf="!data.regResponse">
+  <div class="spinner-inner"><mat-spinner></mat-spinner></div>
+</div>
+
+<div class="container" id="step-08">
+  <div class="form-container">
+    <div class="row" *ngIf="data.getConsInfo && data.regResponse">
+      <div class="col-md-12">
+        <h3 class="txt-indigo text-uppercase">Congratulations</h3>
+        <p>Congratulations! You have completed Online Check-in!</p>
+        <br />
+        <p>Be prepared for your Day Trip with <a class="link" target="_blank" href="https://www.laroche-posay.ca/en/skinchecker-step3.html?utm_source=website&utm_medium=banner&utm_campaign=oci">La Roche Posay</a> sun protection.</p>
+        <br />
+      </div>
+      <div class="col-md-6 print-col">
+        <a (click)="print()"> <strong>Print This Screen</strong> </a>
+      </div>
+    </div>
+    <div class="row" *ngIf="data.getConsInfo">
+      <div class="col-md-6">
+        <h4>Personal Information</h4>
+        <p>
+          <strong>First name:</strong>
+          {{ data.getConsInfo.getConsResponse.name.first }}
+        </p>
+        <p>
+          <strong>Last name:</strong>
+          {{ data.getConsInfo.getConsResponse.name.last }}
+        </p>
+        <p>
+          <strong>Gender:</strong> {{ gender }}
+        </p>
+        <p>
+          <strong>Address 1:</strong>
+          {{ data.getConsInfo.getConsResponse.primary_address.street1 }}
+        </p>
+        <p>
+          <strong>Address 2:</strong>
+          <span
+            *ngIf="data.getConsInfo.getConsResponse.primary_address.street2"
+            >{{
+              data.getConsInfo.getConsResponse.primary_address.street2
+            }}</span
+          >
+        </p>
+        <p>
+          <strong>City:</strong>
+          {{ data.getConsInfo.getConsResponse.primary_address.city }}
+        </p>
+        <p>
+          <strong>Province:</strong>
+          {{ data.getConsInfo.getConsResponse.primary_address.state }}
+        </p>
+        <p>
+          <strong>Postal Code:</strong>
+          {{ data.getConsInfo.getConsResponse.primary_address.zip }}
+        </p>
+        <p>
+          <strong>Email Address:</strong>
+          {{ data.getConsInfo.getConsResponse.email.primary_address }}
+        </p>
+      </div>
+      <div class="col-md-6 event-box">
+        <h4>Event Information</h4>
+        <p><strong>Participation Type:</strong> {{ data.participationType }}</p>
+        <p>
+          <strong>Team name:</strong>
+          <span *ngIf="data.teamName">{{ data.teamName }}</span>
+          <span *ngIf="!data.teamName">None</span>
+        </p>
+        <p>
+          <strong>Pre-Register:</strong>
+          <span *ngIf="surveyResults.getSurveyResponsesResponse">{{
+            preReg
+          }}</span>
+        </p>
+        <p>
+          <strong>Emergency Contact:</strong> {{ data.emergencyName }}
+        </p>
+        <p>
+          <strong>Emergency Contact Phone:</strong> {{ data.emergencyPhone }}
+        </p>
+        <p>
+          <strong>Shuttle Options: </strong>
+        </p>
+        <ul *ngIf="show === true || show2 === true">
+          <li *ngIf="show === true">{{ shuttle1 }}</li>
+          <li *ngIf="show2 === true">{{ shuttle2 }}</li>
+        </ul>        
+        <p *ngIf="show === false || data.participationType === 'VIRTUAL WALKER' || data.participationType === 'ONEWALK CREW' || data.participationType ==='15KM ONEWALK CITY NIGHTS'">
+          No shuttles selected.
+        </p>
+        <p>  
+          <strong>Years Attended: </strong> {{ year }}
+        </p>
+        <p>
+          <strong>Vegetarian Meals: </strong> {{ vege }}
+        </p>
+        <!-- <p>
+          <strong>Cancer: </strong> {{cancer}}
+        </p> -->
+        <!-- <p>
+          <strong>Jersey Size: </strong> {{ jersey }}
+        </p> -->
+        <!-- <p>
+          <strong>Route: </strong> {{ route }}
+        </p> -->
+      </div>
+    </div>
+
+    <div class="border-btm section-divide"></div>
+
+    <div class="row section-two">
+      <div class="col-md-6 button-link">
+        <a href="https://secure.onewalk.ca/site/SPageNavigator/to19_login.html" target="_blank">
+          <button mat-raised-button class="btn-teal">
+            Return to Participant Centre
+          </button>
+        </a>
+      </div>
+      <div class="col-md-6 button-link">
+        <a href="https://toronto19.onewalk.ca/event-details/" target="_blank">
+          <button mat-raised-button class="btn-teal">Event Details</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

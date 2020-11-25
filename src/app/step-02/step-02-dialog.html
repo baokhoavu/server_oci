@@ -1,0 +1,60 @@
+<div class="dialog-cont">
+  <h2 mat-dialog-title class="dialog-h1">
+    Welcome to the Online Check-In!
+  </h2>
+  <div mat-dialog-content>
+    <p>
+      This automated check-in process is designed to save you time and make event check-in easier than ever! Here is what you'll need to do:
+    </p>
+    <ul>
+      <li>
+        We recommend using Google Chrome for the smoothest experience.
+      </li>
+      <li>
+        Review your online profile.
+      </li>
+      <li>
+        Enter emergency contact information.
+      </li>
+      <li>
+        Watch our mandatory safety video.
+      </li>
+      <li>
+        See below for Team Fundraising info. If you need more assistance, please call your OneWalk coaches [416] 815-WALK [9255].
+      </li>
+    </ul>
+    <p>
+      Any walker who has not met their individual fundraising minimum by Friday, September 6 will have their eligibility to walk calculated based on their TEAM fundraising total. If your team has not raised enough funds to get you to your $1,500 or $2,000 minimum, you will be required to complete a Delayed Self Pledge in order to walk.  Check in with your team captain before completing Online Check-In, or call your OneWalk Coaches. 
+    </p>
+    <!-- <p>To get started, review your contact information below.</p> -->
+    <button color="accent" mat-raised-button (click)="onNoClick()">Close</button>
+  </div>
+</div>
+
+<!-- Crew Text -->
+<!-- <div class="dialog-cont" *ngIf="dataService.participationType === 'Crew'">
+  <h2 *ngIf="dataService" mat-dialog-title class="dialog-h1">
+    Welcome to Online Check-in, {{dataService.firstName}}!
+  </h2>
+  <div mat-dialog-content>
+    <p>
+      This automated check-in process is designed to save you time and make event check-in easier than ever! Here is what you'll need to do:
+    </p>
+    <ul>
+      <li>
+        Review your online profile. You will need to complete this step first to confirm your information for the weekend.
+      </li>
+      <li>
+        Enter your emergency contact information.
+      </li>
+      <li>
+        Watch our mandatory safety video.
+      </li>
+    </ul>
+    <p>To ensure that every one of our Walkers enjoys a fun and safe event, <strong>La Roche-Posay</strong> will be providing you with a <strong>My UV Patch</strong> at opening ceremonies on Saturday morning. Download the <strong>My UV Patch App</strong> and tutorial <a
+      href="https://www.laroche-posay.ca/en/skinchecker-step3.html" target="_blank">here</a> to be ready
+      to walk on September 8.</p>
+    <p>
+    <button color="accent" mat-raised-button (click)="onNoClick()">Close</button>
+  </div>
+</div> -->
